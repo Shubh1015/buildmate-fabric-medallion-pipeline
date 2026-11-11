@@ -1,0 +1,7 @@
+{
+  "name": "BuildMate",
+  "dataColors": ["#1F4E79", "#F28E2B", "#59A14F", "#9AA5B1", "#4E79A7", "#B07AA1"],
+  "background": "#FFFFFF",
+  "foreground": "#1F2937",
+  "tableAccent": "#1F4E79"
+}
