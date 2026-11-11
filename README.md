@@ -134,10 +134,10 @@ The written interpretation for operations and finance is in [`stakeholder_writeu
 One 16:9 page built on a semantic model that reads the Gold Delta tables in OneLake through **Direct Lake**, so there is no import and no refresh job to keep in sync.
 
 - **Filters:** depot, rental type, customer type
-- **Headline cards:** revenue (₹ crore), rentals, machines currently out, fleet utilisation, average rental days
+- **Headline cards:** revenue (₹ crore), rentals, machines currently out, fleet utilisation, asset days used
 - **Depot comparison:** revenue, utilisation and machines currently out by depot
 - **Drivers:** revenue by payer type, average days by asset type, rentals started per day
-- **Insights box:** the page explains itself in three lines
+- **Conclusion box:** the page explains itself in a few lines
 
 Orange is reserved for machines currently out, so the eye goes there first. The report theme is in [`dashboard/buildmate_theme.json`](dashboard/buildmate_theme.json).
 
