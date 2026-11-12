@@ -30,7 +30,6 @@ flowchart LR
 | Silver | Deduplicated, standardised, typed tables, a quarantine table and an unmatched-bills table | `nb_02_silver` |
 | Gold | Three dimensions and two facts in a star schema | `nb_03_gold` |
 | Queries | The six business questions in Spark SQL | `nb_04_queries` |
-| Stretch | Idempotent Silver rebuild using Delta `MERGE` | `nb_06_idempotent_silver` |
 
 ## Data
 
@@ -160,17 +159,11 @@ Fabric bills on one shared capacity, so every notebook, pipeline and Power BI qu
 ![Gold acceptance checks](screenshots/task3_checks.png)
 ![DESCRIBE HISTORY](screenshots/task3_history.png)
 
-## Stretch: idempotent Silver rebuild
-
-The rental Silver build merges on `rental_id`, the natural key. A matched row is updated in place and an unmatched row is inserted, so running it twice, or loading the re-sent 10 June file, cannot create a second copy of a rental. The dedupe-by-latest step before the merge guarantees one source row per key, and a final `DELETE` against the quarantine table guarantees a quarantined rental never reappears in the clean table. Merging on the wrong key, such as `source_file` or a timestamp, would be worse than an append because it would silently overwrite or duplicate good rows.
-
-![Idempotent run](screenshots/task6_idempotent.png)
-
 ## How to reproduce
 
 1. In [Microsoft Fabric](https://app.fabric.microsoft.com), create a workspace `ws_buildmate` and a Lakehouse `lh_buildmate`.
 2. Upload the raw data archive to `Files/` and expand it in a notebook.
-3. Import the notebooks from [`notebooks/`](notebooks), attach `lh_buildmate`, set `BASE` to your Files folder, and run them in order: `nb_01_bronze`, `nb_02_silver`, `nb_03_gold`, `nb_04_queries`, then optionally `nb_06_idempotent_silver`.
+3. Import the notebooks from [`notebooks/`](notebooks), attach `lh_buildmate`, set `BASE` to your Files folder, and run them in order: `nb_01_bronze`, `nb_02_silver`, `nb_03_gold`, `nb_04_queries`.
 4. Create a semantic model on the five `gold_` tables and add relationships from the facts to the dimensions, including `gold_fact_billing[rental_id]` to `gold_fact_rental[rental_id]`.
 5. Add the measures, import the theme, and build the report page.
 
@@ -181,7 +174,7 @@ buildmate-fabric-medallion-pipeline/
 ├── README.md
 ├── stakeholder_writeup.md
 ├── LICENSE
-├── notebooks/        one notebook per layer, plus queries and the stretch task
+├── notebooks/        one notebook per layer, plus the business queries
 ├── dashboard/        report theme
 └── screenshots/      evidence for every task
 ```
@@ -194,7 +187,6 @@ Microsoft Fabric (Lakehouse, Spark notebooks, OneLake), PySpark, Spark SQL, Delt
 
 | Step | Screenshot |
 | --- | --- |
-| Raw counts before building | ![](screenshots/step0_raw_counts.png) |
 | Bronze row counts | ![](screenshots/task1_counts.png) |
 | Re-sent day proof (10 June, two files) | ![](screenshots/task1_resend.png) |
 | Bronze checks | ![](screenshots/task1_checks.png) |
