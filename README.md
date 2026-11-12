@@ -198,7 +198,7 @@ Microsoft Fabric (Lakehouse, Spark notebooks, OneLake), PySpark, Spark SQL, Delt
 
 **Shubhangi**, Data Analyst and Power BI Developer, Udaipur, India. Core stack: Tableau, Power BI, SQL and Excel.
 
-[GitHub](https://github.com/Shubh1015) · [LinkedIn](ADD-YOUR-LINKEDIN-URL-HERE)
+[GitHub](https://github.com/Shubh1015) · [LinkedIn](https://www.linkedin.com/in/shubhangi-jain0110/)
 
 ## License
 
